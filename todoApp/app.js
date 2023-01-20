@@ -1,11 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
 const taskRoute = require('./router/task-route');
 const app = express()
 
 const port = 8080;
 
-const dBurl = "mongodb+srv://root:root@ayushcluster.uvgwk8l.mongodb.net/"
+const dBurl = "mongodb+srv://root:root@ayushcluster.uvgwk8l.mongodb.net/todoDB"
 
 mongoose.connect(dBurl, (err) => {
     if(err) {
@@ -14,6 +15,12 @@ mongoose.connect(dBurl, (err) => {
         console.log("Db Connected")
     }
 })
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 app.use('/task', taskRoute);
 
