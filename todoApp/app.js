@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
+const cors  = require('cors');
 const taskRoute = require('./router/task-route');
 const app = express()
 
@@ -16,11 +17,13 @@ mongoose.connect(dBurl, (err) => {
     }
 })
 
+app.use(cors())
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
+
 
 app.use('/task', taskRoute);
 

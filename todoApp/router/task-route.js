@@ -18,8 +18,12 @@ router.post('/', (req, res) => {
 
 });
 
-router.get('/', (req, res) => {
+router.get('/page/:page/limit/:limit', (req, res) => {
+    const page = parseInt(req.params.page);
+    const limit = parseInt(req.params.limit);
     Task.find()
+        .skip(page*limit)
+        .limit(limit)
         .exec()
         .then((results) => {
             const data = results.map((result) => {
