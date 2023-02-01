@@ -7,8 +7,9 @@ import useTaskHook from "./useTaskHook";
 
 const Main = () => {
     const [currenPage, setCurrenPage] = useState(0);
-    const [currentLimit] = useState(2);
-    const { todos, error, loading } = useTaskHook(currenPage, currentLimit);
+    const [currentLimit] = useState(20);
+    const [update, setUpadate] = useState(false);
+    const { todos, error, loading } = useTaskHook(currenPage, currentLimit, update);
     const [loadingButton, setLoadingButton] = useState(false);
     const [data, setData] = useState({
         title: '',
@@ -22,6 +23,9 @@ const Main = () => {
             const { success } = await taskService.addTodos(data);
             if (success) {
                 setData({ title: '', description: '' })
+                if(success){
+                    setUpadate(!update)
+                }
             }
             setLoadingButton(false);
         } else {
@@ -35,12 +39,22 @@ const Main = () => {
             const { success } = await taskService.updateTodo(taskId, data);
             if (success) {
                 setData({ title: '', description: '' })
+                if(success){
+                    setUpadate(!update)
+                }
             }
             setLoadingButton(false);
         } else {
             alert("Please enter the details")
         }
     }
+
+    const  onDelete = async(id) => {
+        const {success} = await taskService.deleteTodo(id);
+        if(success){
+            setUpadate(!update)
+        }
+    } 
 
     return (
         <div className="container">
@@ -58,6 +72,7 @@ const Main = () => {
                                 taskId={todo.id}
                                 setIsEdit={setIsEdit}
                                 setTaskId={setTaskId}
+                                onDelete={onDelete}
                                 setData={setData} />
                         })}
                     </div>

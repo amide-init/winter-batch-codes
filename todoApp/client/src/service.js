@@ -61,6 +61,27 @@ class TaskService {
                 }
             })
     }
+
+    deleteTodo = (id) => {
+        return axios.delete(`http://localhost:8080/task/${id}`)
+            .then((response) => {
+                if (response.data.success) {
+                    return {
+                        success: true
+                    }
+                } else {
+                    return {
+                        success: false
+                    }
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+                return {
+                    success: false
+                }
+            })
+    }
 }
 const taskService = new TaskService();
 export default taskService;

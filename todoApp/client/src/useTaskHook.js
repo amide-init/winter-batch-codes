@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import taskService from "./service";
 
-const useTaskHook = (page, limit) => {
+const useTaskHook = (page, limit, update) => {
     const [todos, setTodos] = useState([]);
     const [error, setError] = useState()
     const [loading, setLoading] = useState();
@@ -20,7 +20,7 @@ const useTaskHook = (page, limit) => {
             }
         }
         fetchData();
-    }, [page])
+    }, [page, update])
     return {todos, error, loading}
 }
 export default useTaskHook;

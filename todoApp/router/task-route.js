@@ -22,7 +22,6 @@ router.get('/page/:page/limit/:limit', (req, res) => {
     const page = parseInt(req.params.page);
     const limit = parseInt(req.params.limit);
     Task.find()
-        .sort({createdAt:-1})
         .skip(page*limit)
         .limit(limit)
         .exec()
