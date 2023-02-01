@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 const cors  = require('cors');
 const taskRoute = require('./router/task-route');
+const userRoute = require('./router/user-route');
 const app = express()
 
 const port = 8080;
@@ -26,6 +27,7 @@ app.use(bodyParser.json())
 
 
 app.use('/task', taskRoute);
+app.use('/user', userRoute);
 
 app.listen(port, () => {
     console.log("Server is connected ", port)
