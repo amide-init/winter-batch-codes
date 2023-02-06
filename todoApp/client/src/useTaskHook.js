@@ -27,6 +27,3 @@ export default useTaskHook;
 
 
 
-// CRUD : 
-// login and registraion:
-// paymeny gatway intergation

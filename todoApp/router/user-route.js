@@ -22,7 +22,7 @@ router.post('/login', (req, res) => {
                     const token = JWT.sign(payload, 'aminkey')
                     return res.json({success: true, message: "Login Successfully", token: token})
                 }
-                res.json({success: false, message: "Password dot not mached"})
+                res.json({success: false, error: "Password dot not mached"})
             })
         }).catch((err) => {
             res.json({success: false, error: 'Server Error'})
