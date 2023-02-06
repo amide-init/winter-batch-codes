@@ -29,7 +29,7 @@ class UserService {
                             }
                         }
                         return {
-                            token: null,
+                            error: response.data.error,
                         }
                     }).catch((err) => {
                         console.log(err)
@@ -40,18 +40,18 @@ class UserService {
     }
 
     getProfile = () => {
-            // const headers = {
-            //     'Authorization' : 'Bearer ' + token
-            // }
-            return axios.get('http://localhost:8080/user/profile')
+            const headers = {
+                'Authorization' : 'Bearer ' + localStorage.getItem('token')
+            }
+            return axios.get('http://localhost:8080/user/profile', {headers: headers})
                         .then((response) => {
                             if(response.data.success) {
                                 return {
-                                    data: response.data.data
+                                    user: response.data.data
                                 }
                             }
                             return {
-                                data: null,
+                                user: null,
                             }
                         }).catch((err) => {
                             console.log(err)
